@@ -1,0 +1,128 @@
+
+<nav th:fragment="menu"
+     xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     class="navbar navbar-expand-lg bg-dark navbar-dark">
+
+    <div class="container">
+
+        <!-- LOGOTIPO -->
+        <a class="navbar-brand" th:href="@{/}">
+            Salão de Beleza
+        </a>
+
+        <!-- BOTÃO MOBILE -->
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menuPrincipal"
+                aria-controls="menuPrincipal"
+                aria-expanded="false"
+                aria-label="Abrir menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+
+            <!-- MENU PRINCIPAL -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- PÚBLICO -->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        Início
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/servicos}">
+                        Serviços
+                    </a>
+                </li>
+
+                <!-- SOMENTE AUTENTICADOS -->
+                <li class="nav-item"
+                    sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/clientes}">
+                        Clientes
+                    </a>
+                </li>
+
+                <li class="nav-item"
+                    sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/agendamentos}">
+                        Agendamentos
+                    </a>
+                </li>
+
+            </ul>
+
+            <!-- USUÁRIO NÃO LOGADO -->
+            <div sec:authorize="!isAuthenticated()">
+
+                <a class="btn btn-outline-light btn-sm"
+                   th:href="@{/login}">
+                    Entrar
+                </a>
+
+            </div>
+
+            <!-- USUÁRIO LOGADO -->
+            <div sec:authorize="isAuthenticated()"
+                 class="dropdown">
+
+                <button class="btn btn-outline-light dropdown-toggle"
+                        type="button"
+                        id="menuUsuario"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+
+                    Olá,
+                    <span sec:authentication="name">
+                        Usuário
+                    </span>
+
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="menuUsuario">
+
+                    <li>
+                        <a class="dropdown-item"
+                           th:href="@{/perfil}">
+                            Meu perfil
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item"
+                           th:href="@{/perfil/editar}">
+                            Editar informações
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item"
+                           th:href="@{/perfil/alterar-senha}">
+                            Alterar senha
+                        </a>
+                    </li>
+
+                    <li><hr class="dropdown-divider"></li>
+
+                    <li>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit"
+                                    class="dropdown-item text-danger">
+                                Sair do sistema
+                            </button>
+                        </form>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</nav>

@@ -1,97 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Modelo - Sistema de Salão</title>
-
-    <!--
-        BOOTSTRAP LOCAL
-        Estrutura esperada:
-
-        src/
-        └── main/
-            └── resources/
-                └── static/
-                    ├── css/
-                    │   └── bootstrap.min.css
-                    ├── js/
-                    │   └── bootstrap.bundle.min.js
-                    └── img/
-                        └── ...
-
-        Se o nome dos arquivos for diferente, altere os caminhos abaixo.
-    -->
+    <meta name="description" content="Página Modelo para os conteúdos das demais páginas do sistema">
+    <meta name="keywords" content="Modelo, Bootstrap, Sistema">
+    <meta name="author" content="SEU NOME">
+    <title>Modelo - Sistema</title>
+    <link rel="icon" type="image/png" th:href="@{/img/favicon.png}">
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-
 <body class="bg-light">
 
-<!-- =========================================================
-     1. NAVBAR
-     ========================================================= -->
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-    <div class="container">
-
-        <a class="navbar-brand" th:href="@{/}">
-            Salão de Beleza
-        </a>
-
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#menuPrincipal"
-                aria-controls="menuPrincipal"
-                aria-expanded="false"
-                aria-label="Abrir menu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="menuPrincipal">
-
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">
-                        Início
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/clientes}">
-                        Clientes
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/agendamentos}">
-                        Agendamentos
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/servicos}">
-                        Serviços
-                    </a>
-                </li>
-
-            </ul>
-
-            <!-- Exemplo de usuário logado -->
-            <span class="navbar-text text-white me-3">
-                Olá, <strong>Usuário</strong>
-            </span>
-
-            <a class="btn btn-outline-light btn-sm" th:href="@{/logout}">
-                Sair
-            </a>
-
-        </div>
-    </div>
-</nav>
-
+<!-- MENU -->
+<div th:replace="~{fragments/menu :: menu}"></div>
 
 <!-- =========================================================
      2. CONTAINER PRINCIPAL
@@ -142,7 +65,7 @@
             <div class="carousel-inner rounded">
 
                 <div class="carousel-item active">
-                    <img th:src="@{/img/carousel-1.jpg}"
+                    <img th:src="@{/img/imagem.png}"
                          class="d-block w-100"
                          alt="Imagem do salão"
                          style="height: 320px; object-fit: cover;">
@@ -154,7 +77,7 @@
                 </div>
 
                 <div class="carousel-item">
-                    <img th:src="@{/img/carousel-2.jpg}"
+                    <img th:src="@{/img/imagem.png}"
                          class="d-block w-100"
                          alt="Serviços do salão"
                          style="height: 320px; object-fit: cover;">
@@ -166,7 +89,7 @@
                 </div>
 
                 <div class="carousel-item">
-                    <img th:src="@{/img/carousel-3.jpg}"
+                    <img th:src="@{/img/imagem.png}"
                          class="d-block w-100"
                          alt="Atendimento"
                          style="height: 320px; object-fit: cover;">
@@ -204,278 +127,6 @@
         </div>
     </section>
 
-
-    <!-- =====================================================
-         4. FORMULÁRIO
-         ===================================================== -->
-    <section class="mb-5">
-
-        <h2 class="h5 mb-3">Formulário</h2>
-
-        <!--
-            No projeto real:
-            th:action="@{/clientes/salvar}"
-            th:object="${cliente}"
-        -->
-
-        <form th:action="@{/exemplo/salvar}"
-              method="post">
-
-            <div class="row g-3">
-
-                <div class="col-12 col-md-6">
-                    <label for="nome" class="form-label">
-                        Nome
-                    </label>
-
-                    <input type="text"
-                           class="form-control"
-                           id="nome"
-                           name="nome"
-                           placeholder="Digite o nome">
-                </div>
-
-                <div class="col-12 col-md-6">
-                    <label for="email" class="form-label">
-                        E-mail
-                    </label>
-
-                    <input type="email"
-                           class="form-control"
-                           id="email"
-                           name="email"
-                           placeholder="Digite o e-mail">
-                </div>
-
-                <div class="col-12 col-md-6">
-                    <label for="telefone" class="form-label">
-                        Telefone
-                    </label>
-
-                    <input type="text"
-                           class="form-control"
-                           id="telefone"
-                           name="telefone"
-                           placeholder="(00) 00000-0000">
-                </div>
-
-                <div class="col-12 col-md-6">
-                    <label for="tipo" class="form-label">
-                        Tipo
-                    </label>
-
-                    <select class="form-select"
-                            id="tipo"
-                            name="tipo">
-
-                        <option value="">Selecione...</option>
-                        <option value="1">Opção 1</option>
-                        <option value="2">Opção 2</option>
-                        <option value="3">Opção 3</option>
-
-                    </select>
-                </div>
-
-                <div class="col-12">
-                    <label for="observacao" class="form-label">
-                        Observação
-                    </label>
-
-                    <textarea class="form-control"
-                              id="observacao"
-                              name="observacao"
-                              rows="3"></textarea>
-                </div>
-
-                <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input"
-                               type="checkbox"
-                               id="ativo"
-                               name="ativo">
-
-                        <label class="form-check-label"
-                               for="ativo">
-                            Registro ativo
-                        </label>
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <button type="submit"
-                            class="btn btn-primary">
-                        Salvar
-                    </button>
-
-                    <a th:href="@{/}"
-                       class="btn btn-secondary">
-                        Cancelar
-                    </a>
-                </div>
-
-            </div>
-        </form>
-    </section>
-
-
-    <!-- =====================================================
-         5. BUSCA / FILTRO
-         ===================================================== -->
-    <section class="mb-5">
-
-        <h2 class="h5 mb-3">Busca / Filtro</h2>
-
-        <!--
-            Exemplo para a funcionalidade de CLIENTES:
-
-            GET /clientes?termo=Maria
-
-            O Controller recebe o parâmetro "termo" e devolve
-            a lista filtrada para a página.
-        -->
-
-        <form th:action="@{/clientes}"
-              method="get">
-
-            <div class="row g-2">
-
-                <div class="col-12 col-md-9">
-                    <input type="search"
-                           class="form-control"
-                           name="termo"
-                           placeholder="Digite o nome do cliente">
-                </div>
-
-                <div class="col-12 col-md-3 d-grid">
-                    <button type="submit"
-                            class="btn btn-primary">
-                        Pesquisar
-                    </button>
-                </div>
-
-            </div>
-        </form>
-
-    </section>
-
-
-    <!-- =====================================================
-         6. BLOCO DE CARDS
-         ===================================================== -->
-    <section class="mb-5">
-
-        <h2 class="h5 mb-3">Cards</h2>
-
-        <div class="row g-4">
-
-            <!-- Card 1 -->
-            <div class="col-12 col-md-6 col-lg-4">
-
-                <div class="card h-100 shadow-sm">
-
-                    <img th:src="@{/img/servico.jpg}"
-                         class="card-img-top"
-                         alt="Imagem do serviço"
-                         style="height: 200px; object-fit: cover;">
-
-                    <div class="card-body">
-
-                        <h3 class="card-title h5">
-                            Corte de cabelo
-                        </h3>
-
-                        <p class="card-text">
-                            Descrição do serviço oferecido pelo salão.
-                        </p>
-
-                        <p class="fw-bold">
-                            R$ 50,00
-                        </p>
-
-                        <a th:href="@{/servicos/1}"
-                           class="btn btn-primary">
-                            Ver detalhes
-                        </a>
-
-                    </div>
-
-                </div>
-            </div>
-
-
-            <!-- Card 2 -->
-            <div class="col-12 col-md-6 col-lg-4">
-
-                <div class="card h-100 shadow-sm">
-
-                    <img th:src="@{/img/servico.jpg}"
-                         class="card-img-top"
-                         alt="Imagem do serviço"
-                         style="height: 200px; object-fit: cover;">
-
-                    <div class="card-body">
-
-                        <h3 class="card-title h5">
-                            Manicure
-                        </h3>
-
-                        <p class="card-text">
-                            Descrição do serviço.
-                        </p>
-
-                        <p class="fw-bold">
-                            R$ 40,00
-                        </p>
-
-                        <a th:href="@{/servicos/2}"
-                           class="btn btn-primary">
-                            Ver detalhes
-                        </a>
-
-                    </div>
-
-                </div>
-            </div>
-
-
-            <!-- Card 3 -->
-            <div class="col-12 col-md-6 col-lg-4">
-
-                <div class="card h-100 shadow-sm">
-
-                    <img th:src="@{/img/servico.jpg}"
-                         class="card-img-top"
-                         alt="Imagem do serviço"
-                         style="height: 200px; object-fit: cover;">
-
-                    <div class="card-body">
-
-                        <h3 class="card-title h5">
-                            Pedicure
-                        </h3>
-
-                        <p class="card-text">
-                            Descrição do serviço.
-                        </p>
-
-                        <p class="fw-bold">
-                            R$ 35,00
-                        </p>
-
-                        <a th:href="@{/servicos/3}"
-                           class="btn btn-primary">
-                            Ver detalhes
-                        </a>
-
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
     <!-- =====================================================
          7. BLOCO DE IMAGEM + TEXTO
          ===================================================== -->
@@ -487,7 +138,7 @@
 
             <div class="col-12 col-lg-6">
 
-                <img th:src="@{/img/salao.jpg}"
+                <img th:src="@{/img/imagem.png}"
                      class="img-fluid rounded shadow-sm"
                      alt="Interior do salão">
 
@@ -515,178 +166,7 @@
         </div>
     </section>
 
-
-    <!-- =====================================================
-         8. CARDS DE ESTATÍSTICAS
-         ===================================================== -->
-    <section class="mb-5">
-
-        <h2 class="h5 mb-3">Estatísticas</h2>
-
-        <div class="row g-3">
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <div class="card text-center h-100 shadow-sm">
-                    <div class="card-body">
-
-                        <p class="text-muted mb-1">
-                            Clientes
-                        </p>
-
-                        <p class="display-6 fw-bold mb-0">
-                            125
-                        </p>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <div class="card text-center h-100 shadow-sm">
-                    <div class="card-body">
-
-                        <p class="text-muted mb-1">
-                            Agendamentos
-                        </p>
-
-                        <p class="display-6 fw-bold mb-0">
-                            48
-                        </p>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <div class="card text-center h-100 shadow-sm">
-                    <div class="card-body">
-
-                        <p class="text-muted mb-1">
-                            Serviços
-                        </p>
-
-                        <p class="display-6 fw-bold mb-0">
-                            18
-                        </p>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <div class="card text-center h-100 shadow-sm">
-                    <div class="card-body">
-
-                        <p class="text-muted mb-1">
-                            Atendimentos hoje
-                        </p>
-
-                        <p class="display-6 fw-bold mb-0">
-                            12
-                        </p>
-
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- =====================================================
-         9. TABELA / LISTAGEM
-         ===================================================== -->
-    <section class="mb-5">
-
-        <h2 class="h5 mb-3">Tabela / Listagem</h2>
-
-        <div class="table-responsive">
-
-            <table class="table table-striped table-hover align-middle">
-
-                <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Serviço</th>
-                    <th>Prestador</th>
-                    <th>Data</th>
-                    <th>Hora</th>
-                    <th>Ação</th>
-                </tr>
-                </thead>
-
-                <tbody>
-
-                <!--
-                    Exemplo Thymeleaf:
-
-                    <tr th:each="agendamento : ${agendamentos}">
-                        <td th:text="${agendamento.id}"></td>
-                        <td th:text="${agendamento.cliente.nome}"></td>
-                        <td th:text="${agendamento.servico.nome}"></td>
-                        <td th:text="${agendamento.servico.prestador.nome}"></td>
-                        ...
-                    -->
-
-                <tr>
-                    <td>1</td>
-                    <td>Maria Silva</td>
-                    <td>Manicure</td>
-                    <td>Ana Souza</td>
-                    <td>06/10/2026</td>
-                    <td>14:00</td>
-                    <td>
-                        <a href="#"
-                           class="btn btn-sm btn-outline-primary">
-                            Visualizar
-                        </a>
-                    </td>
-                </tr>
-
-                </tbody>
-
-            </table>
-        </div>
-    </section>
-
-
-    <!-- =====================================================
-         10. ALERTA / MENSAGEM
-         ===================================================== -->
-    <section class="mb-5">
-
-        <h2 class="h5 mb-3">Mensagens</h2>
-
-        <div class="alert alert-success"
-             role="alert">
-
-            Operação realizada com sucesso!
-
-        </div>
-
-        <div class="alert alert-danger"
-             role="alert">
-
-            Não foi possível realizar a operação.
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
+   <!-- =====================================================
          11. MODAL COM STATIC BACKDROP
          ===================================================== -->
     <section class="mb-5">
@@ -756,69 +236,10 @@
     </section>
 
 
-    <!-- =====================================================
-         12. PAGINAÇÃO
-         ===================================================== -->
-    <section class="mb-5">
-
-        <h2 class="h5 mb-3">Paginação</h2>
-
-        <nav aria-label="Navegação de páginas">
-
-            <ul class="pagination">
-
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">
-                        Anterior
-                    </a>
-                </li>
-
-                <li class="page-item active">
-                    <a class="page-link" href="#">
-                        1
-                    </a>
-                </li>
-
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        2
-                    </a>
-                </li>
-
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        3
-                    </a>
-                </li>
-
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        Próxima
-                    </a>
-                </li>
-
-            </ul>
-
-        </nav>
-    </section>
 
 </main>
-
-
-<!-- =========================================================
-     13. FOOTER
-     ========================================================= -->
-<footer class="bg-dark text-white py-4">
-
-    <div class="container text-center">
-
-        <p class="mb-0">
-            Sistema de Gestão do Salão &copy; 2026
-        </p>
-
-    </div>
-
-</footer>
+<!-- FOOTER -->
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 
 <!--
