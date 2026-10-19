@@ -1,7 +1,6 @@
 
 <nav th:fragment="menu"
      xmlns:th="http://www.thymeleaf.org"
-     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
      class="navbar navbar-expand-lg bg-dark navbar-dark">
 
     <div class="container">
@@ -42,14 +41,14 @@
 
                 <!-- SOMENTE AUTENTICADOS -->
                 <li class="nav-item"
-                    sec:authorize="isAuthenticated()">
+                    th:if="${session.autenticado == true}">
                     <a class="nav-link" th:href="@{/clientes}">
                         Clientes
                     </a>
                 </li>
 
                 <li class="nav-item"
-                    sec:authorize="isAuthenticated()">
+                    th:if="${session.autenticado == true}">
                     <a class="nav-link" th:href="@{/agendamentos}">
                         Agendamentos
                     </a>
@@ -58,7 +57,7 @@
             </ul>
 
             <!-- USUÁRIO NÃO LOGADO -->
-            <div sec:authorize="!isAuthenticated()">
+            <div th:if="${session.autenticado != true}">
 
                 <a class="btn btn-outline-light btn-sm"
                    th:href="@{/login}">
@@ -68,7 +67,7 @@
             </div>
 
             <!-- USUÁRIO LOGADO -->
-            <div sec:authorize="isAuthenticated()"
+            <div th:if="${session.autenticado == true}"
                  class="dropdown">
 
                 <button class="btn btn-outline-light dropdown-toggle"
@@ -78,7 +77,7 @@
                         aria-expanded="false">
 
                     Olá,
-                    <span sec:authentication="name">
+                    <span th:text="${session.nomeUsuario}">
                         Usuário
                     </span>
 
@@ -108,15 +107,15 @@
                         </a>
                     </li>
 
-                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
 
                     <li>
-                        <form th:action="@{/logout}" method="post">
-                            <button type="submit"
-                                    class="dropdown-item text-danger">
-                                Sair do sistema
-                            </button>
-                        </form>
+                        <a class="dropdown-item text-danger"
+                           th:href="@{/logout}">
+                            Sair do sistema
+                        </a>
                     </li>
 
                 </ul>
