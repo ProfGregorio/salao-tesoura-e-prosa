@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Cadastro de Cliente - Salão de Beleza</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap/bootstrap.min.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+</head>
+
+<body class="bg-light">
+
+<!-- MENU -->
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<main class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-lg-9">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-dark text-white p-4">
+
+                    <h1 class="h4 mb-1">
+                        Cadastro de Cliente
+                    </h1>
+
+                    <p class="mb-0">
+                        Preencha seus dados para criar sua conta.
+                    </p>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <!-- MENSAGEM DE ERRO -->
+                    <div th:if="${erro != null}"
+                         class="alert alert-danger"
+                         role="alert"
+                         th:text="${erro}">
+                    </div>
+
+                    <form th:action="@{/cadastro}"
+                          th:object="${form}"
+                          method="post">
+
+                        <!-- DADOS PESSOAIS -->
+                        <h2 class="h5 mb-3">Dados pessoais</h2>
+
+                        <div class="row g-3">
+
+                            <div class="col-12">
+                                <label class="form-label">
+                                    Nome completo
+                                </label>
+
+                                <input type="text"
+                                       th:field="*{nome}"
+                                       class="form-control"
+                                       maxlength="150"
+                                       autocomplete="name"
+                                       required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    CPF
+                                </label>
+
+                                <input type="text"
+                                       th:field="*{cpf}"
+                                       class="form-control"
+                                       maxlength="14"
+                                       placeholder="Somente números"
+                                       inputmode="numeric"
+                                       required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    Data de nascimento
+                                </label>
+
+                                <input type="date"
+                                       th:field="*{dataNasc}"
+                                       class="form-control"
+                                       required>
+                            </div>
+
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- ENDEREÇO -->
+                        <h2 class="h5 mb-3">Endereço</h2>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-4">
+                                <label class="form-label">CEP</label>
+
+                                <input type="text"
+                                       th:field="*{cep}"
+                                       class="form-control"
+                                       maxlength="9"
+                                       inputmode="numeric"
+                                       required>
+                            </div>
+
+                            <div class="col-md-8">
+                                <label class="form-label">
+                                    Logradouro
+                                </label>
+
+                                <input type="text"
+                                       th:field="*{logradouro}"
+                                       class="form-control"
+                                       required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Número</label>
+
+                                <input type="text"
+                                       th:field="*{numero}"
+                                       class="form-control"
+                                       required>
+                            </div>
+
+                            <div class="col-md-8">
+                                <label class="form-label">
+                                    Complemento
+                                </label>
+
+                                <input type="text"
+                                       th:field="*{complemento}"
+                                       class="form-control">
+                            </div>
+
+                            <div class="col-md-5">
+                                <label class="form-label">Bairro</label>
+
+                                <input type="text"
+                                       th:field="*{bairro}"
+                                       class="form-control"
+                                       required>
+                            </div>
+
+                            <div class="col-md-5">
+                                <label class="form-label">Cidade</label>
+
+                                <input type="text"
+                                       th:field="*{cidade}"
+                                       class="form-control"
+                                       required>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label">UF</label>
+
+                                <input type="text"
+                                       th:field="*{estado}"
+                                       class="form-control text-uppercase"
+                                       maxlength="2"
+                                       placeholder="SP"
+                                       required>
+                            </div>
+
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- ACESSO AO SISTEMA -->
+                        <h2 class="h5 mb-3">Dados de acesso</h2>
+
+                        <div class="row g-3">
+
+                            <div class="col-12">
+                                <label class="form-label">
+                                    E-mail
+                                </label>
+
+                                <input type="email"
+                                       th:field="*{email}"
+                                       class="form-control"
+                                       autocomplete="email"
+                                       required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    Senha
+                                </label>
+
+                                <input type="password"
+                                       name="senha"
+                                       id="senha"
+                                       class="form-control"
+                                       minlength="8"
+                                       autocomplete="new-password"
+                                       required>
+
+                                <div class="form-text">
+                                    Mínimo de 8 caracteres.
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    Confirmar senha
+                                </label>
+
+                                <input type="password"
+                                       name="confirmarSenha"
+                                       id="confirmarSenha"
+                                       class="form-control"
+                                       minlength="8"
+                                       autocomplete="new-password"
+                                       required>
+                            </div>
+
+                        </div>
+
+                        <!-- AÇÕES -->
+                        <div class="d-flex flex-wrap gap-2
+                                    justify-content-end mt-4">
+
+                            <a th:href="@{/login}"
+                               class="btn btn-outline-secondary">
+                                Já tenho conta
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Cadastrar
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+<!-- FOOTER -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

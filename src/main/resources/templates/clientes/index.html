@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Meu Painel - Salão Tesoura e Prosa</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap/bootstrap.min.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+</head>
+
+<body class="bg-light">
+
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<main class="container py-4">
+
+    <!-- BOAS-VINDAS -->
+    <div class="row mb-4">
+        <div class="col-12">
+
+            <h1 class="h3">
+                Olá,
+                <span th:text="${cliente.nome}">Cliente</span>!
+            </h1>
+
+            <p class="text-muted">
+                Bem-vindo ao seu painel de atendimentos.
+            </p>
+
+        </div>
+    </div>
+
+    <!-- MENSAGENS -->
+    <div th:if="${param.atualizado}"
+         class="alert alert-success">
+        Seus dados foram atualizados com sucesso!
+    </div>
+
+    <div th:if="${param.agendado}"
+         class="alert alert-success">
+        Solicitação de agendamento registrada!
+        Aguarde a confirmação do salão.
+    </div>
+
+    <!-- ESTATÍSTICAS -->
+    <section class="mb-5">
+
+        <h2 class="h5 mb-3">Meus atendimentos</h2>
+
+        <div class="row g-3">
+
+            <div class="col-12 col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+
+                        <p class="text-muted mb-2">
+                            Total de agendamentos
+                        </p>
+
+                        <h3 class="display-6 mb-0"
+                            th:text="${total}">0</h3>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+
+                        <p class="text-muted mb-2">
+                            Aguardando confirmação
+                        </p>
+
+                        <h3 class="display-6 mb-0"
+                            th:text="${pendentes}">0</h3>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+
+                        <p class="text-muted mb-2">
+                            Serviços concluídos
+                        </p>
+
+                        <h3 class="display-6 mb-0"
+                            th:text="${concluidos}">0</h3>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ACESSOS RÁPIDOS -->
+    <section class="mb-5">
+
+        <h2 class="h5 mb-3">O que deseja fazer?</h2>
+
+        <div class="row g-3">
+
+            <div class="col-12 col-md-6">
+
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+
+                        <h3 class="h5">
+                            Agendar atendimento
+                        </h3>
+
+                        <p>
+                            Solicite uma data e horário
+                            para seu próximo serviço.
+                        </p>
+
+                        <a th:href="@{/agendamentos/novo}"
+                           class="btn btn-primary">
+                            Novo agendamento
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-md-6">
+
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+
+                        <h3 class="h5">Meu cadastro</h3>
+
+                        <p>
+                            Consulte e atualize seus dados
+                            pessoais e endereço.
+                        </p>
+
+                        <a th:href="@{/cliente/perfil}"
+                           class="btn btn-outline-primary">
+                            Editar meus dados
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PRÓXIMOS ATENDIMENTOS -->
+    <section class="mb-5">
+
+        <h2 class="h5 mb-3">Próximos atendimentos</h2>
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <!-- NENHUM AGENDAMENTO -->
+                <div th:if="${#lists.isEmpty(proximos)}"
+                     class="text-center py-4">
+
+                    <p class="text-muted">
+                        Você ainda não possui próximos atendimentos.
+                    </p>
+
+                    <a th:href="@{/agendamentos/novo}"
+                       class="btn btn-outline-primary">
+                        Solicitar atendimento
+                    </a>
+
+                </div>
+
+                <!-- TABELA -->
+                <div th:unless="${#lists.isEmpty(proximos)}"
+                     class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead>
+                        <tr>
+                            <th>Serviço</th>
+                            <th>Data e horário</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <tr th:each="agendamento : ${proximos}">
+
+                            <td th:text="${agendamento.servico}">
+                                Serviço
+                            </td>
+
+                            <td th:text="${#temporals.format(
+                                agendamento.dataHora,
+                                'dd/MM/yyyy HH:mm'
+                            )}">
+                                25/10/2026 14:00
+                            </td>
+
+                            <td>
+                                <span class="badge bg-secondary"
+                                      th:text="${agendamento.status}">
+                                    PENDENTE
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

@@ -85,12 +85,30 @@
 
                 <ul class="dropdown-menu dropdown-menu-end"
                     aria-labelledby="menuUsuario">
+                    <!-- PAINEL DO CLIENTE -->
+                    <li class="nav-item"
+                        th:if="${session.perfil != null and session.perfil.name() == 'CLIENTE'}">
 
-                    <li>
-                        <a class="dropdown-item"
-                           th:href="@{/perfil}">
-                            Meu perfil
+                        <a class="nav-link" th:href="@{/cliente/painel}">
+                            Meu Painel
                         </a>
+
+                    </li>
+                    <li th:if="${session.perfil != null and session.perfil.name() == 'CLIENTE'}">
+
+                        <a class="dropdown-item"
+                           th:href="@{/agendamentos/novo}">
+                            Novo agendamento
+                        </a>
+
+                    </li>
+                    <li th:if="${session.perfil != null  and session.perfil.name() == 'CLIENTE'}">
+
+                        <a class="dropdown-item"
+                           th:href="@{/cliente/perfil}">
+                            Editar meus dados
+                        </a>
+
                     </li>
 
                     <li>

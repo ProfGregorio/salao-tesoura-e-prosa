@@ -20,7 +20,6 @@
 <body class="bg-light">
 
 <!-- MENU -->
-<div th:replace="~{fragments/menu :: menu}"></div>
 
 <main class="container py-5">
 
@@ -47,45 +46,61 @@
                          class="alert alert-success">
                         Você saiu do sistema.
                     </div>
+                    <!-- CADASTRO REALIZADO -->
+                    <div th:if="${param.cadastro}"
+                         class="alert alert-success">
+
+                        Cadastro realizado com sucesso!
+                        Entre com seu e-mail e senha.
+
+                    </div>
 
                     <!-- FORMULÁRIO -->
-                    <form th:action="@{/login}"
-                          method="post">
+                    <form th:action="@{/login}" method="post">
 
                         <div class="mb-3">
-                            <label for="username"
-                                   class="form-label">
-                                Usuário
+                            <label for="email" class="form-label">
+                                E-mail
                             </label>
 
-                            <input type="text"
+                            <input type="email"
                                    class="form-control"
-                                   id="username"
-                                   name="username"
-                                   required
-                                   autofocus>
+                                   id="email"
+                                   name="email"
+                                   required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="password"
-                                   class="form-label">
+                            <label for="senha" class="form-label">
                                 Senha
                             </label>
 
                             <input type="password"
                                    class="form-control"
-                                   id="password"
-                                   name="password"
+                                   id="senha"
+                                   name="senha"
                                    required>
                         </div>
 
-                        <button type="submit"
-                                class="btn btn-primary w-100">
+                        <button type="submit" class="btn btn-primary w-100">
                             Entrar
                         </button>
+                        <div class="text-center mt-3">
+
+                            <p class="mb-0">
+                                Ainda não possui cadastro?
+                            </p>
+
+                            <a th:href="@{/cadastro}">
+                                Criar minha conta
+                            </a>
+
+                        </div>
 
                     </form>
-
+                    <div th:if="${param.inativo}" class="alert alert-warning">
+                        Sua conta está desativada.
+                    </div>
                 </div>
             </div>
 
